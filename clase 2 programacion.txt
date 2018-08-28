@@ -1,0 +1,345 @@
+arranca la cursada papu
+
+*funciones
+ques esuna funcion ??
+
+un frag de cod que esta abstraido del bloqeu general que venimos programando, (dentro del main)
+
+desarmar el int y el return
+
+cuando nosotros programamos no podemos hacerlo todo en el mismo lugar (fb ej), 
+no puedo conseguir que todo un codigo fuente este dentro fde una funcion, esas partes pequeñas
+se llaman funciones.
+
+ventajas (reutilizacion) una funcion cumple algo especiffico, asi que quizas necesite usarlo en otra
+parte del codigo o en otro porgrama (por ej una funcion de suma. si la necesitara de nuevo
+podria copiarla, llamar a la funcion)
+(independencia de codigo) (las funciones tienen que ser cohesivas y no acoplables) (la cohesion
+es cuando a una funcion la defino de tal manera que no necesita nda de afuera para poder desarillarse)
+el acoplamiento es cuando esa funcion genera dependencia de algo de afuera, + cohesiva = - acoplable
+
+(division de tareas)
+(mejor depuracion) facilidad para correccion de bugs 
+
+...
+
+ejercicio en el main, y despues pasarlo a una funcion (no siempre son optimas)
+
+
+
+
+....en el main....
+
+int numero1;
+    int numero2;
+    int suma;
+
+    printf("Ingrese el primer numero ");
+    scanf("%d",&numero1);
+    printf("El numero ingresado fue: %d \n",numero1);
+
+    printf("Ingrese el segundo numero ");
+    scanf("%d",&numero2);
+    printf("El numero ingresado fue: %d",numero2);
+
+    suma=numero1+numero2;
+
+    printf("La suma de los dos numeros es %d", suma);
+
+
+
+
+....ahora nuevas alternativas, usando funciones....
+
+hay 3 instancias en C, (en otros 2, 1)
+
+1. declarar la funcion/prototipo/firma (ha que pensar primero en que hace la funcion) (suma 
+2 numeros),segundo que recibe y tercero que parametros devuelve) (si devuelve un entero
+va un int))
+
+
+2. llamada a la funcion ()
+3. desarrollo de la funcion
+
+(al declarar una funcion, indicamos que la vamos a usar)
+
+
+
+retorna |  recibe
+     0  |   0
+     0  |   1
+     1	|   0
+     1  |   1
+	   
+
+.....si no recibe ni retorna nada, se usa la funcion "void" no tiene un valor especifico,......
+
+creamos la funcion "sumar1" <--- esta va arriba del main
+
+void sumar1(void);  <--- es un prototipo, y todos finalizan con ";" si no pongo el "(void)" asume que estoy pasadole un entero
+			con ese void asumimos que no recibe nada.
+
+Ese es el prototipo de la funcion, ahora la desarrollamos, la vamos a programar, (la implementamos)
+
+el obj del programa es sumar 2 numeros y mostrarlos, esta aislada del contexto donde se llama, tiene que tener 
+sus elementos, es altamente cohesiva
+
+copio y pego lo que esta dentro del "main" (excepto el return)
+
+ahora viene la llamada a la funcion 
+
+
+
+
+.....ahora el main quedaria...  (fijate que tiene el prototipo arriba de main)
+
+
+
+
+
+void sumar1(void); (es el prototipo de la funcion)
+
+int main()
+{
+    sumar1();
+
+    return 0;
+}
+
+
+void sumar1(void)
+{
+    //todo lo que estaba dentro del main, lo llevo al void
+    int numero1;
+    int numero2;
+    int suma;
+
+    printf("Ingrese el primer numero ");
+    scanf("%d",&numero1);
+    printf("El numero ingresado fue: %d \n",numero1);
+
+    printf("Ingrese el segundo numero ");
+    scanf("%d",&numero2);
+    printf("El numero ingresado fue: %d",numero2);
+
+    suma=numero1+numero2;
+
+    printf("La suma de los dos numeros es %d", suma);
+}
+
+el main llama en algun momento a la funcion sumar1 (ambas estan cargadas en memoria, no pueden ejecutarse al mismo tiempo
+sino eso seria un hilo, tambien llamdo miltiprogramacion), entonces se ejecuta "sumar1" y le devuelve la suma al main para
+que siga ejecutandose (sigue con lo que tiene abajo, en caso de que hubiera)
+
+
+si en el main pondria 
+
+"void sumar1(5)" 	me tiraria un error, le estoy pasando un tipo de dato que la funcion no puede recibir ya que el 
+			prototipo tiene un "(void)"
+			si el prototipo no tiene eso, queda abierta a recibir cualquier tipo de dato
+
+void sumar1(); 		asi quedaria abierto el prototipo
+
+
+ahora este modulo es una funcion? no, ya que no cumple una sola tarea (pide un numero, otro, los suma, y luego los muestra)
+lo recomendable es modularizar lo mas posible
+
+     	
+.....si no retorna nada pero si recibe parametros.....
+
+ahora va a recibir los 2 numeros enteros
+
+vamos a llamar a la funcion "sumar2", entonces el prototipo quedaria asi:
+
+void sumar2(int, int);		-> aclaramos que son enteros, porque sino pasaria lo de arriba, de dejarlo abierto y que 
+				   reciba lo que quiera 
+
+
+en C no puedo declarar funciones con el mismo nombre (en otros lenguajes, si)
+
+....ahora vamos a la implementacion....
+
+void sumar(int n1; int n2)	-> ahora si estan declaradas las variables
+{
+	//(acà no voy a pedir los numeros, ya que los numeros van a venir de afuera, ya sea del main o de otra funcion)
+}
+
+voy a necesitar una variable que me guarde la suma, (copio y pego la suma y como muestra el resultado)
+
+
+void sumar2(int n1; int n2)
+{
+    suma=numero1+numero2;
+
+    printf("La suma de los dos numeros es %d", suma);
+}
+
+
+tengo que pasarle las variables a "sumar2" porque las desconoce, entonces cuando haga la llamada va a quedar...
+
+void sumar2(numero1, numero2)
+
+
+....entonces todo quedaria....
+
+
+
+void sumar2(int, int);
+
+int main()
+{
+
+    int numero1;
+    int numero2;
+
+
+
+    printf("Ingrese el primer numero ");
+    scanf("%d",&numero1);
+    printf("El numero ingresado fue: %d \n",numero1);
+
+    printf("Ingrese el segundo numero ");
+    scanf("%d",&numero2);
+    printf("El numero ingresado fue: %d",numero2);
+
+    sumar2(numero1, numero2);
+    return 0;
+}
+
+
+void sumar2(int n1, int n2)
+{
+	//(acà no voy a pedir los numeros, ya que los numeros van a venir de afuera, ya sea del main o de otra funcion)
+	int suma;
+	suma=n1+n2;
+
+    printf("La suma de los dos numeros es %d", suma);
+}
+
+
+....ahora una funcion que retorna pero que no recibe...
+
+int sumar3(void); ->prototipo
+
+como no los recibe a los parametros, lo tiene que generar la funcion misma
+
+int sumar3(void)
+{
+int numero1;
+    int numero2;
+    int suma;
+
+    printf("Ingrese el primer numero ");
+    scanf("%d",&numero1);
+
+
+    printf("Ingrese el segundo numero ");
+    scanf("%d",&numero2);
+
+    suma=numero1 + numero2;
+    return suma; (return suma porque, es el valor cual va a reemplazar en la llamada, es ese valor de la funcion que retorna)
+}
+
+....y el main quedaria...
+
+int sumar3(void);
+int main()
+{
+    int suma;
+    suma = sumar3();
+    printf("La suma es: %d",suma);
+
+
+
+    return 0;
+}
+
+...ahora uina que retorne valores y los reciba....
+
+int sumar4(int, int);
+int main()
+{
+    int numero1;
+    int numero2;
+    int suma;
+
+    printf("Ingrese el primer numero ");
+    scanf("%d",&numero1);
+
+
+    printf("Ingrese el segundo numero ");
+    scanf("%d",&numero2);
+    suma = sumar4(numero1, numero2);
+
+
+    printf("La suma de los dos numeros es %d", suma);
+
+
+    return 0;
+}
+
+
+
+
+
+int sumar4(int numero1, int numero2)
+{
+    int suma;
+	suma=numero1+numero2;
+	return suma; (recordar que necesita retornar un valor para cuando lo llamen)
+}
+
+
+
+...pasajes...
+pasajes por valor ()
+pasajes por referencia (si modifico el valor fuera de una funcion, tambien se modifica fuera)
+
+parametros actuales, formales, por valor, variables locales, variables globales
+
+
+
+***inicio para la calcu**** (tp)
+int ingresarOpcion(void);
+int main()
+{
+    int opcion;
+    do
+    {
+        printf("1.Sumar\n");
+        printf("2.Restar\n");
+        printf("3.Multiplicar\n");
+        printf("4.Dividir\n");
+        printf("5.Salir\n");
+
+        opcion=ingresarOpcion();
+        switch(opcion)
+        {
+            case 1:
+                printf("Estoy sumando!!!\n");
+                break;
+            case 2:
+                printf("Estoy restando!!!\n");
+                break;
+            case 3:
+                printf("Estoy multiplicando!!\n");
+                break;
+            case 4:
+                printf("Estoy dividiendo!!!\n");
+                break;
+
+        }
+    system("pause"); //pausa la consola
+    system("cls");  //limpia
+    }while (opcion!=5);
+    return 0;
+}
+
+int ingresarOpcion(void)
+{
+    int opcion;
+    printf("Ingrese una opcion: ");
+    scanf("%d",&opcion);
+
+    return opcion;
+}
